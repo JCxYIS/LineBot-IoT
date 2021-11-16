@@ -1,0 +1,3 @@
+Pillow
+line-bot-sdk
+flask
