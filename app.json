@@ -1,0 +1,15 @@
+{
+    "name": "My Cool IoT LineBot",
+    "description": "I learned this from 2021 NCU Smart Campus! So cool!",
+    "keywords": ["chatbot", "line", "linebot"],
+    "env": {
+        "LINEBOT_CHANNEL_ACCESS_TOKEN": {
+            "description": "LINE bot Channel access token",
+            "required":  true
+        },
+        "LINEBOT_CHANNEL_SECRET": {
+            "description": "LINE bot Channel secret",
+            "required":  true
+        }
+    }
+}
