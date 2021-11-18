@@ -1,10 +1,12 @@
 import traceback
 
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
+
 from linebot import LineBotApi
 from linebot.webhook import WebhookHandler
 from flask import Flask, request, Response
 
-from settings import LINEBOT_CHANNEL_ACCESS_TOKEN, LINEBOT_CHANNEL_SECRET, PORT, IS_DEBUG
+from settings import LINEBOT_CHANNEL_ACCESS_TOKEN, LINEBOT_CHANNEL_SECRET
 
 # Line Bot APIs
 # For More Information: https://github.com/line/line-bot-sdk-python
@@ -43,3 +45,13 @@ def callback():
         traceback.print_exc()
         app.logger.error(traceback.format_exc())
         return Response('Error!', 500)
+
+
+# ###################################################################################
+
+@webhook_handler.add(MessageEvent, message=TextMessage)
+def echo(event):
+    linebot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text="Hello, " + str(event.message.text))
+    )
