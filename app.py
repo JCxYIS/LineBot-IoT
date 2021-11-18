@@ -1,6 +1,8 @@
+import os
+import tempfile
 import traceback
 
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMessage, VideoMessage, AudioMessage
 
 from linebot import LineBotApi
 from linebot.webhook import WebhookHandler
@@ -49,9 +51,63 @@ def callback():
 
 # ###################################################################################
 
-@webhook_handler.add(MessageEvent, message=TextMessage)
-def echo(event):
-    linebot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="Hello, " + str(event.message.text))
-    )
+@webhook_handler.add(MessageEvent)
+def on_message(event):
+    """
+    when our bot received message
+    """
+
+    # variables
+    my_user = user.getuser(event.source.user_id)  # user model
+    msg_message = ''                              # text of message
+    msg_attachment_path = ''                      # local attachment path of that message
+
+    # Determine type of msg
+    attachment_ext = ''  # extension of a file
+    if isinstance(event.message, TextMessage):
+        msg_message = str(event.message.text)
+        print('[MSG]', msg_message, flush=True)
+    elif isinstance(event.message, ImageMessage):
+        attachment_ext = 'jpg'
+        print('[IMG_MSG]', flush=True)
+    elif isinstance(event.message, VideoMessage):
+        attachment_ext = 'mp4'
+        print('[VID_MSG]', flush=True)
+    elif isinstance(event.message, AudioMessage):
+        attachment_ext = 'm4a'
+        print('[VOC_MSG]', flush=True)
+
+    # Download attachment
+    if attachment_ext:
+        message_content = linebot_api.get_message_content(event.message.id)
+        # Download to temp location
+        with tempfile.NamedTemporaryFile(dir=fileutil.dir_temp, prefix=attachment_ext + '-', delete=False) as tf:
+            for chunk in message_content.iter_content():
+                tf.write(chunk)
+            tempfile_path = tf.name
+            msg_attachment_path = tempfile_path + '.' + attachment_ext
+            os.rename(tempfile_path, msg_attachment_path)
+
+    # Special Commands
+    if msg_message == 'reset':
+        my_user.state = 0
+        message = TextSendMessage(text='Your state has been reset.')
+    elif msg_message == 'state':
+        message = TextSendMessage(text='state=' + str(my_user.state) + ' \nUID：' + str(my_user.uid))
+    else:
+        message = response.determine_response(my_user, msg_message, msg_attachment_path, attachment_ext)
+
+    # 發送回覆
+    linebot_api.reply_message(event.reply_token, message)
+
+    # 掛上 Rich Menu
+    attach_richmenu_id = response.determine_attach_rich_menus(my_user)
+    if attach_richmenu_id:
+        linebot_api.link_rich_menu_to_user(event.source.user_id, attach_richmenu_id)
+    else:
+        linebot_api.unlink_rich_menu_from_user(event.source.user_id)
+
+    # linebot_api.reply_message(
+    #     event.reply_token,
+    #     TextSendMessage(text="Hello, " + str(event.message.text))
+    # )
