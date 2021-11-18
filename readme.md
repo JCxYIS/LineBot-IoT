@@ -21,8 +21,6 @@
 
 - Complete the form and press Create
 
-==TODO==
-
 #### Put API key into our code
 ==TODO==
 
