@@ -2,3 +2,4 @@ Pillow
 line-bot-sdk
 flask
 gunicorn
+paho-mqtt
