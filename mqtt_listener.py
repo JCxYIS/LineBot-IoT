@@ -22,7 +22,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     # 轉換編碼utf-8才看得懂中文
-    print(msg.topic+" " + msg.payload.decode('utf-8'))
+    print(msg.topic+" " + msg.payload.decode('utf-8'), flush=True)
 
 
 # def job(client):
