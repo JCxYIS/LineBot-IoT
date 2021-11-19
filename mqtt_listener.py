@@ -36,22 +36,24 @@ def on_message(client, userdata, msg):
 #        time.sleep(5)
 #
 
-# 連線設定
-# 初始化地端程式
-client = mqtt.Client()
 
-# 設定連線的動作
-client.on_connect = on_connect
+def init():
+    # 連線設定
+    # 初始化地端程式
+    client = mqtt.Client()
 
-# 設定接收訊息的動作
-client.on_message = on_message
+    # 設定連線的動作
+    client.on_connect = on_connect
 
-# 設定登入帳號密碼
-client.username_pw_set(username, password)
+    # 設定接收訊息的動作
+    client.on_message = on_message
 
-# 設定連線資訊(IP, Port, 連線時間)
-client.connect("ideasky.app", 1883, 60)
+    # 設定登入帳號密碼
+    client.username_pw_set(username, password)
 
-# 開始連線，執行設定的動作和處理重新連線問題
-# 也可以手動使用其他loop函式來進行連接
-# client.loop_forever()
+    # 設定連線資訊(IP, Port, 連線時間)
+    client.connect("ideasky.app", 1883, 60)
+
+    # 開始連線，執行設定的動作和處理重新連線問題
+    # 也可以手動使用其他loop函式來進行連接
+    # client.loop_forever()
