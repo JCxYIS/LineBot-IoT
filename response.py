@@ -20,18 +20,13 @@ def make_response(user: User, message: str, attachment_path: str, attachment_ext
 
     # Init
     if user.state == 0:
-        user.state = 100
+        user.state = 1
         return generate_response_from_directory('welcome')
 
     # Basic state
-    elif user.state == 100:
-        # TODO
-        return generate_response_from_directory('test', random.randint(0, 100))
-
-    # 開始製作長輩圖
-    elif user.state == 200:
-        # TODO
-        return generate_response_from_directory('init')
+    elif user.state == 1:
+        # return generate_response_from_directory('SOME_THING', 'SOME_PARAM_1', 'SOME_PARAM_2', ...)
+        return generate_response_from_directory(message)
 
     # ---
     # default fallback
