@@ -1,5 +1,6 @@
 import os
 import tempfile
+import threading
 import traceback
 
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMessage, VideoMessage, AudioMessage
@@ -11,6 +12,7 @@ from flask import Flask, request, Response
 import fileutil
 import mqtt_listener
 import response
+import settings
 import user
 from settings import LINEBOT_CHANNEL_ACCESS_TOKEN, LINEBOT_CHANNEL_SECRET
 
@@ -24,6 +26,8 @@ mqtt_listener.init()
 
 # Flask Server
 app = Flask(__name__, static_folder='static')
+# app.run(threaded=True, host='0.0.0.0', port=settings.PORT)
+
 
 
 
