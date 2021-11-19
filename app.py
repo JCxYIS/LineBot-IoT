@@ -29,8 +29,6 @@ app = Flask(__name__, static_folder='static')
 # app.run(threaded=True, host='0.0.0.0', port=settings.PORT)
 
 
-
-
 # ###################################################################################
 
 # root route

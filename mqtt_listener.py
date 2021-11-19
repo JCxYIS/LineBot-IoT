@@ -12,7 +12,7 @@ from settings import scope, username, password
 
 
 def on_connect(client, userdata, flags, rc):
-    print("[MQTT] Connected with result code "+str(rc), flush=True)
+    print("[MQTT on_connect] Connected with result code "+str(rc), flush=True)
 
     # 將訂閱主題寫在on_connet中
     # 如果我們失去連線或重新連線時
@@ -24,8 +24,11 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     # 轉換編碼utf-8才看得懂中文
-    print('[MQTT]', msg.topic+" " + msg.payload.decode('utf-8'), flush=True)
+    print('[MQTT on_message]', msg.topic+" " + msg.payload.decode('utf-8'), flush=True)
 
+
+def on_log(client, userdata, level, buf):
+    print('[MQTT', level, ']', buf)
 
 # def job(client):
 #    while 1:
@@ -49,6 +52,9 @@ def init():
 
     # 設定接收訊息的動作
     client.on_message = on_message
+
+    client.on_log = on_log
+
 
     # 設定登入帳號密碼
     client.username_pw_set(username, password)
