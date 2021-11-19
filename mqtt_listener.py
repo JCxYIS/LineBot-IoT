@@ -56,5 +56,5 @@ def init():
 
     # 開始連線，執行設定的動作和處理重新連線問題
     # 也可以手動使用其他loop函式來進行連接
-    t = threading.Thread(client.loop_forever())
+    t = threading.Thread(target=client.loop_forever)
     t.start()
