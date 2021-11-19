@@ -1,3 +1,5 @@
+import random
+
 from linebot.models import *
 
 from user import User
@@ -24,7 +26,7 @@ def make_response(user: User, message: str, attachment_path: str, attachment_ext
     # basic state
     elif user.state == 100:
         # TODO
-        return generate_response_from_directory('init')
+        return generate_response_from_directory('test', random.randint(0, 100))
 
     # 開始製作長輩圖
     elif user.state == 200:
@@ -58,6 +60,7 @@ def determine_attach_rich_menus(user: User):
 def generate_response_from_directory(response_name, *arguments) -> [SendMessage]:
     """
     Generate response from the folder "responses/{response_name}.json"
+    If not found, reply with "I don't know"-like message
     """
     # the dir we wanna find
     replies = []
