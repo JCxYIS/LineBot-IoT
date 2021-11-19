@@ -95,7 +95,7 @@ def on_message(event):
     elif msg_message == 'state':
         message = TextSendMessage(text='state=' + str(my_user.state) + ' \nUID：' + str(my_user.uid))
     else:
-        message = response.determine_response(my_user, msg_message, msg_attachment_path, attachment_ext)
+        message = response.make_response(my_user, msg_message, msg_attachment_path, attachment_ext)
 
     # 發送回覆
     linebot_api.reply_message(event.reply_token, message)
