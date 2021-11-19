@@ -21,6 +21,9 @@ webhook_handler = WebhookHandler(LINEBOT_CHANNEL_SECRET)
 # Flask Server
 app = Flask(__name__, static_folder='static')
 
+# mqtt listener
+import listener
+
 
 # ###################################################################################
 
