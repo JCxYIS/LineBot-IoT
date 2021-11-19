@@ -18,12 +18,12 @@ def make_response(user: User, message: str, attachment_path: str, attachment_ext
     attachment_ext: extension of attachment (possible values: jpg, mp4, m4a, (empty))
     """
 
-    # When user starts to follow our bot
+    # Init
     if user.state == 0:
         user.state = 100
         return generate_response_from_directory('welcome')
 
-    # basic state
+    # Basic state
     elif user.state == 100:
         # TODO
         return generate_response_from_directory('test', random.randint(0, 100))
