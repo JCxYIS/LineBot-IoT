@@ -19,11 +19,12 @@ from settings import LINEBOT_CHANNEL_ACCESS_TOKEN, LINEBOT_CHANNEL_SECRET
 linebot_api = LineBotApi(LINEBOT_CHANNEL_ACCESS_TOKEN)
 webhook_handler = WebhookHandler(LINEBOT_CHANNEL_SECRET)
 
+# mqtt listener
+mqtt_listener.init()
+
 # Flask Server
 app = Flask(__name__, static_folder='static')
 
-# mqtt listener
-mqtt_listener.init()
 
 
 # ###################################################################################

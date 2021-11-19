@@ -10,7 +10,7 @@ from settings import scope, username, password
 
 
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+    print("Connected with result code "+str(rc), flush=True)
 
     # 將訂閱主題寫在on_connet中
     # 如果我們失去連線或重新連線時
