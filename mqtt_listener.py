@@ -1,3 +1,5 @@
+import logging
+
 import paho.mqtt.client as mqtt
 import threading
 import time
@@ -10,7 +12,7 @@ from settings import scope, username, password
 
 
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+    print("[MQTT] Connected with result code "+str(rc), flush=True)
 
     # 將訂閱主題寫在on_connet中
     # 如果我們失去連線或重新連線時
@@ -22,8 +24,11 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     # 轉換編碼utf-8才看得懂中文
-    print(msg.topic+" " + msg.payload.decode('utf-8'))
+    print('[MQTT MSG]', msg.topic+" " + msg.payload.decode('utf-8'), flush=True)
 
+
+def on_log(client, userdata, level, buf):
+    print('[MQTT LOG]', level, buf)
 
 # def job(client):
 #    while 1:
@@ -36,22 +41,28 @@ def on_message(client, userdata, msg):
 #        time.sleep(5)
 #
 
-# 連線設定
-# 初始化地端程式
-client = mqtt.Client()
 
-# 設定連線的動作
-client.on_connect = on_connect
+def init():
+    # 連線設定
+    # 初始化地端程式
+    client = mqtt.Client()
 
-# 設定接收訊息的動作
-client.on_message = on_message
+    # 設定連線的動作
+    client.on_connect = on_connect
 
-# 設定登入帳號密碼
-client.username_pw_set(username, password)
+    # 設定接收訊息的動作
+    client.on_message = on_message
 
-# 設定連線資訊(IP, Port, 連線時間)
-client.connect("ideasky.app", 1883, 60)
+    client.on_log = on_log
 
-# 開始連線，執行設定的動作和處理重新連線問題
-# 也可以手動使用其他loop函式來進行連接
-# client.loop_forever()
+
+    # 設定登入帳號密碼
+    client.username_pw_set(username, password)
+
+    # 設定連線資訊(IP, Port, 連線時間)
+    print('[MQTT] Attempt to connect', flush=True)
+    client.connect("ideasky.app", 1883, 60)
+
+    # 開始連線，執行設定的動作和處理重新連線問題
+    # 也可以手動使用其他loop函式來進行連接
+    client.loop_start()

@@ -1,5 +1,6 @@
 import os
 import tempfile
+import threading
 import traceback
 
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMessage, VideoMessage, AudioMessage
@@ -9,7 +10,9 @@ from linebot.webhook import WebhookHandler
 from flask import Flask, request, Response
 
 import fileutil
+import mqtt_listener
 import response
+import settings
 import user
 from settings import LINEBOT_CHANNEL_ACCESS_TOKEN, LINEBOT_CHANNEL_SECRET
 
@@ -18,11 +21,12 @@ from settings import LINEBOT_CHANNEL_ACCESS_TOKEN, LINEBOT_CHANNEL_SECRET
 linebot_api = LineBotApi(LINEBOT_CHANNEL_ACCESS_TOKEN)
 webhook_handler = WebhookHandler(LINEBOT_CHANNEL_SECRET)
 
+# mqtt listener
+mqtt_listener.init()
+
 # Flask Server
 app = Flask(__name__, static_folder='static')
-
-# mqtt listener
-import listener
+# app.run(threaded=True, host='0.0.0.0', port=settings.PORT)
 
 
 # ###################################################################################
@@ -108,8 +112,8 @@ def on_message(event):
     linebot_api.reply_message(event.reply_token, message)
 
     # Bind Rich Menu
-    attach_rich_menu_id = response.determine_attach_rich_menus(my_user)
-    if attach_rich_menu_id:
-        linebot_api.link_rich_menu_to_user(event.source.user_id, attach_rich_menu_id)
-    else:
-        linebot_api.unlink_rich_menu_from_user(event.source.user_id)
+    # attach_rich_menu_id = response.determine_attach_rich_menus(my_user)
+    # if attach_rich_menu_id:
+    #     linebot_api.link_rich_menu_to_user(event.source.user_id, attach_rich_menu_id)
+    # else:
+    #     linebot_api.unlink_rich_menu_from_user(event.source.user_id)
