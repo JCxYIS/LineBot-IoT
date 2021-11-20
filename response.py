@@ -27,8 +27,19 @@ def make_response(user: User, message: str, attachment_path: str, attachment_ext
     # Basic state
     elif user.state == 1:
         # if message == 'temperature':
-        #   return generate_response_from_directory(message, mqtt_listener.temperature, mqtt_listener.last_updated)
+        #   return generate_response_from_directory('temperature', mqtt_listener.temperature, mqtt_listener.last_updated)
+        # elif message == 'guess':
+        #   user.state = 100
+        #   return generate_response_from_directory('guess')
         return generate_response_from_directory(message)
+
+    # Guess number
+    # elif user.state == 100:
+    #     user.state = 1
+    #     if message == '48763':
+    #         return generate_response_from_directory('guess_correct')
+    #     else:
+    #         return generate_response_from_directory('guess_wrong')
 
     # ---
     # default fallback
@@ -66,7 +77,7 @@ def generate_response_from_directory(response_name, *arguments) -> [SendMessage]
     path = os.path.join(fileutil.dir_resp, response_name+'.json')
     if os.path.exists(path):
         json_str = open(path, "r").read()
-        replies = json_to_line_message_object(json_str)
+        replies = json_to_line_message_object(json_str, *arguments)
 
     # Not found
     if len(replies) == 0:
