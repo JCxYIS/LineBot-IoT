@@ -81,12 +81,13 @@ def json_to_line_message_object(reply_json: str, *args) -> [SendMessage]:
     return_array = []
 
     # parse json
-    json_obj = {key: value.format(*args) for key, value in json_obj.items()}
+    # json_obj = {key: value.format(*args) for key, value in json_obj.items()}  #TODO: general func to parse texts
 
     # Convert
     message_object = None
     message_type = json_obj['type']
     if message_type == 'text':
+        json_obj['text'] = json_obj['text'].format(*args)
         message_object = TextSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'imagemap':
         message_object = ImagemapSendMessage.new_from_json_dict(json_obj)
