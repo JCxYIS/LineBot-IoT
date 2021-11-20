@@ -1,6 +1,5 @@
-# How to Build a Simple LineBot (feat. IoT stuffs)
-> written for NCU "智慧校園實作 Practice of smart campus (GA2003)" TA class  
-> With tutorial!
+# How to Build a Simple LineBot (feat. MQTT)
+> written for NCU "智慧校園實作 Practice of smart campus" TA course
 
 ## Deploy to Heroku
   [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
