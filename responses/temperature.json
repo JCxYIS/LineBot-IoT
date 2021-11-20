@@ -1,0 +1,4 @@
+{
+  "type": "text",
+  "text": "Temperature is {0} degrees.\nLast Update: {1}"
+}

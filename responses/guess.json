@@ -1,0 +1,33 @@
+{
+  "type": "template",
+  "altText": "this is a buttons template",
+  "template": {
+    "type": "buttons",
+    "thumbnailImageUrl": "https://ibw.bwnet.com.tw/image/pool/2015/07/4828c0551f7a2f90e4356bfcb6dbbba3_800.webp",
+    "imageBackgroundColor": "#FFFFFF",
+    "title": "Answer the following question",
+    "text": "11x4433 = ?",
+    "actions": [
+      {
+        "type": "message",
+        "label": "9487",
+        "text": "9487"
+      },
+      {
+        "type": "message",
+        "label": "48763",
+        "text": "48763"
+      },
+      {
+        "type": "message",
+        "label": "228922",
+        "text": "228922"
+      },
+      {
+        "type": "message",
+        "label": "821091",
+        "text": "821091"
+      }
+    ]
+  }
+}
