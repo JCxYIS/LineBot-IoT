@@ -47,6 +47,10 @@ def on_log(client, userdata, level, buf):
 
 
 def init():
+    if not MQTT_SCOPE:
+        print('[MQTT] No scope specified, exit from MQTT.')
+        return
+
     # 連線設定
     # 初始化地端程式
     client = mqtt.Client()

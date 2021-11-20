@@ -8,4 +8,4 @@
 > Don't forget to fork before deploy!
 
 ## Tutorial
-You can find the tutorial in [wiki page](https://github.com/JCxYIS/LineBot-IoT/wiki)
+You can find the tutorial in [the wiki page](https://github.com/JCxYIS/LineBot-IoT/wiki)
