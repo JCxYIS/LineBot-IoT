@@ -1,3 +1,7 @@
+"""
+Source written by Nathan Chen (https://github.com/nucktwillieren)
+"""
+
 import logging
 
 import paho.mqtt.client as mqtt
@@ -6,7 +10,7 @@ import time
 import random
 import datetime
 import json
-from settings import scope, username, password
+from settings import MQTT_SCOPE, MQTT_USERNAME, MQTT_PASSWORD
 
 # 當地端程式連線伺服器得到回應時，要做的動作
 
@@ -17,7 +21,7 @@ def on_connect(client, userdata, flags, rc):
     # 將訂閱主題寫在on_connet中
     # 如果我們失去連線或重新連線時
     # 地端程式將會重新訂閱
-    client.subscribe(f"ideasky/{scope}/#")
+    client.subscribe(f"ideasky/{MQTT_SCOPE}/#")
 
 # 當接收到從伺服器發送的訊息時要進行的動作
 
@@ -57,7 +61,7 @@ def init():
 
 
     # 設定登入帳號密碼
-    client.username_pw_set(username, password)
+    client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
 
     # 設定連線資訊(IP, Port, 連線時間)
     print('[MQTT] Attempt to connect', flush=True)

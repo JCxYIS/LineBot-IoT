@@ -1,7 +1,7 @@
 {
     "name": "My Cool IoT LineBot",
-    "description": "I learned this from 2021 NCU Smart Campus! So cool!",
-    "keywords": ["chatbot", "line", "linebot"],
+    "description": "2021 NCU Smart Campus TA course! So cool!",
+    "keywords": ["line", "linebot", "python", "flask"],
     "env": {
         "LINEBOT_CHANNEL_ACCESS_TOKEN": {
             "description": "LINE bot Channel access token",
@@ -10,6 +10,18 @@
         "LINEBOT_CHANNEL_SECRET": {
             "description": "LINE bot Channel secret",
             "required":  true
+        },
+        "MQTT_SCOPE" : {
+            "description": "MQTT Scope (not required)",
+            "required":  false
+        },
+        "MQTT_USERNAME" : {
+            "description": "MQTT Username (not required)",
+            "required":  false
+        },
+        "MQTT_PASSWORD" : {
+            "description": "MQTT Password (not required)",
+            "required":  false
         }
     }
 }

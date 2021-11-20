@@ -42,12 +42,14 @@ def determine_attach_rich_menus(user: User):
     如果沒有，回傳 空字串
     """
 
-    if user.state >= 200:
-        return 'richmenu-87d4b4dbe02db04127c03ca06f5b9ba7'
-    elif user.state >= 100:
-        return 'richmenu-063fc5e646c13b50d27811df86d7c647'
-    else:
-        return ''
+    # if user.state >= 200:
+    #     return 'richmenu-87d4b4dbe02db04127c03ca06f5b9ba7'
+    # elif user.state >= 100:
+    #     return 'richmenu-063fc5e646c13b50d27811df86d7c647'
+    # else:
+    #     return ''
+
+    return ''
 
 
 # -----------------------------------------------------------------------------------------------------------------
