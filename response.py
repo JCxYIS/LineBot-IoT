@@ -2,6 +2,7 @@ import random
 
 from linebot.models import *
 
+import mqtt_listener
 from user import User
 
 import os
@@ -25,7 +26,8 @@ def make_response(user: User, message: str, attachment_path: str, attachment_ext
 
     # Basic state
     elif user.state == 1:
-        # return generate_response_from_directory('SOME_THING', 'SOME_PARAM_1', 'SOME_PARAM_2', ...)
+        # if message == 'temperature'
+        #   return generate_response_from_directory(message, mqtt_listener.temperature, mqtt_listener.last_updated)
         return generate_response_from_directory(message)
 
     # ---

@@ -1,5 +1,6 @@
 Pillow
 line-bot-sdk
-flask
+flask~=2.0.2
 gunicorn
-paho-mqtt
+paho-mqtt~=1.6.1
+python-dateutil~=2.8.2
