@@ -26,7 +26,7 @@ def make_response(user: User, message: str, attachment_path: str, attachment_ext
 
     # Basic state
     elif user.state == 1:
-        # if message == 'temperature'
+        # if message == 'temperature':
         #   return generate_response_from_directory(message, mqtt_listener.temperature, mqtt_listener.last_updated)
         return generate_response_from_directory(message)
 
