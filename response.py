@@ -68,46 +68,46 @@ def generate_response_from_directory(response_name, *arguments) -> [SendMessage]
     if len(replies) == 0:
         replies.append(TextSendMessage("I don't know what you mean..."))
 
-    # Fill in parameters
-    for r in replies:
-        r.text = r.text.format(*arguments)
-
     return replies
 
 
-def json_to_line_message_object(reply_json: str) -> [SendMessage]:
+def json_to_line_message_object(reply_json: str, *args) -> [SendMessage]:
     """
     Parse reply.json, and return the corresponding line message model
     """
 
     # Get json
-    jsonObj = json.loads(reply_json)
+    json_obj = json.loads(reply_json)
     return_array = []
 
     # parse json
-    message_type = jsonObj['type']
+    json_obj = {key: value.format(*args) for key, value in json_obj.items()}
 
     # Convert
+    message_object = None
+    message_type = json_obj['type']
     if message_type == 'text':
-        return_array.append(TextSendMessage.new_from_json_dict(jsonObj))
+        message_object = TextSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'imagemap':
-        return_array.append(ImagemapSendMessage.new_from_json_dict(jsonObj))
+        message_object = ImagemapSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'template':
-        return_array.append(TemplateSendMessage.new_from_json_dict(jsonObj))
+        message_object = TemplateSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'image':
-        return_array.append(ImageSendMessage.new_from_json_dict(jsonObj))
+        message_object = ImageSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'sticker':
-        return_array.append(StickerSendMessage.new_from_json_dict(jsonObj))
+        message_object = StickerSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'audio':
-        return_array.append(AudioSendMessage.new_from_json_dict(jsonObj))
+        message_object = AudioSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'location':
-        return_array.append(LocationSendMessage.new_from_json_dict(jsonObj))
+        message_object = LocationSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'flex':
-        return_array.append(FlexSendMessage.new_from_json_dict(jsonObj))
+        message_object = FlexSendMessage.new_from_json_dict(json_obj)
     elif message_type == 'video':
-        return_array.append(VideoSendMessage.new_from_json_dict(jsonObj))
+        message_object = VideoSendMessage.new_from_json_dict(json_obj)
     else:
         raise Exception("BAD reply json type:" + str(message_type))
+
+    return_array.append(message_object)
 
     # return
     return return_array
