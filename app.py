@@ -112,8 +112,8 @@ def on_message(event):
     linebot_api.reply_message(event.reply_token, message)
 
     # Bind Rich Menu
-    # attach_rich_menu_id = response.determine_attach_rich_menus(my_user)
-    # if attach_rich_menu_id:
-    #     linebot_api.link_rich_menu_to_user(event.source.user_id, attach_rich_menu_id)
-    # else:
-    #     linebot_api.unlink_rich_menu_from_user(event.source.user_id)
+    attach_rich_menu_id = response.determine_attach_rich_menus(my_user)
+    if attach_rich_menu_id:
+        linebot_api.link_rich_menu_to_user(event.source.user_id, attach_rich_menu_id)
+    else:
+        linebot_api.unlink_rich_menu_from_user(event.source.user_id)

@@ -57,8 +57,6 @@ def determine_attach_rich_menus(user: User):
 
     # if user.state == 1:
     #     return 'richmenu-XXXXXXXXXXXXXXXXXXXXXX'
-    # else:
-    #     return ''
 
     return ''
 
