@@ -31,7 +31,7 @@ def make_response(user: User, message: str, attachment_path: str, attachment_ext
         # elif message == 'guess':
         #   user.state = 100
         #   return generate_response_from_directory('guess')
-        return generate_response_from_directory(message)
+        return generate_response_from_directory(message)  # should remove this
 
     # Guess number
     # elif user.state == 100:
@@ -55,10 +55,8 @@ def determine_attach_rich_menus(user: User):
     如果沒有，回傳 空字串
     """
 
-    # if user.state >= 200:
-    #     return 'richmenu-87d4b4dbe02db04127c03ca06f5b9ba7'
-    # elif user.state >= 100:
-    #     return 'richmenu-063fc5e646c13b50d27811df86d7c647'
+    # if user.state == 1:
+    #     return 'richmenu-XXXXXXXXXXXXXXXXXXXXXX'
     # else:
     #     return ''
 
